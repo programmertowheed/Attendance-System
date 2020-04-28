@@ -1,0 +1,190 @@
+body{
+    color: #000;
+}
+.card-header.py-3 h6.m-0.font-weight-bold.text-primary.d-inline-block {
+    line-height: 31px !important;
+}
+footer.sticky-footer {
+    margin-top: 50px;
+}
+
+.table a.btn.pd0{
+    padding: 4px 8px !important;
+}
+
+.table .fa, .table .fas {
+    color: #fff !important;
+}
+.table-responsive {
+    display: inline-table;
+}
+.form-group .form-check-inline {
+    padding-left: 20px;
+}
+.form-group .form-check-inline .form-check-label {
+    margin-left: 15px;
+}
+#msg {
+    margin: 8px 0 0 10px;
+    /* font-weight: 600; */
+}
+span#status {
+    color: green;
+}
+
+span#error {
+    color: red;
+}
+
+.profilepic {
+    width: 200px;
+    margin: 0 auto;
+}
+img.img-profile.img-fluid.img-thumbnail.img-pointer{
+    cursor: pointer;
+}
+.innerdiv {
+    border: 1px solid #d6671f;
+    padding: 30px;
+    background: #b9cdda4a;
+}
+.outerdiv {
+    width: 45% !important;
+    margin: 0 auto;
+}
+.text-center.mt-4.mb-4 h1.h3.mb-0.text-gray-800 {
+    color: #333 !important;
+}
+.innerdiv .form-group label {
+    color: #000;
+    font-size: 17px;
+    font-weight: 500;
+}
+span.requerd {
+    color: red;
+}
+span.mr-2.d-none.d-lg-inline.text-gray-600.small {
+    font-size: 18px;
+}
+
+.sidebar .nav-item .nav-link .img-profile, .topbar .nav-item .nav-link .img-profile {
+    height: 3rem;
+    width: 3rem;
+}
+.rotate-n-15 {
+    transform: none;
+}
+
+.text-tomato {
+    color: #f57343;
+}
+
+nav.navbar a.sidebar-brand.d-flex.align-items-center.justify-content-center {
+    font-size: 21px !important;
+}
+.sidebar-brand.d-flex.align-items-center.justify-content-center:hover {
+    text-decoration: none;
+}
+nav.navbar .sidebar-brand-text.mx-3 {
+    text-transform: uppercase !important;
+}
+.well {
+    padding: 15px 0;
+    background: #bdbec4;
+    margin: 10px 0;
+    font-size: 20px;
+    color: #000;
+}
+.panel-heading {
+    padding: 20px 20px;
+    background: #ddd;
+    margin: 0 0 10px 0;
+    overflow: hidden;
+}
+.h2, h2 {
+    font-size: 0rem;
+    margin-bottom: 0;
+}
+.panel.panel-default {
+    border: 1px solid #bdbec4;
+}
+.table {
+    margin-bottom: 0rem;
+}
+.panel-body-mrl {
+    padding: 0 20px;
+}
+.mtrl {
+    margin: 10px 20px;
+}
+.formouter{
+    padding: 30px;
+}
+input[type=checkbox], input[type=radio] {
+    width: 20px;
+    margin-top: 6px;
+    height: calc(5px + 0px + 13px);
+}
+#navTop li.nav-item {
+    font-weight: bold;
+    background: #4e73e1;
+    border-radius: 5px;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 0.9);
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: rgb(231, 231, 231);
+}
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(231, 231, 231);
+}
+span.attendName {
+    position: absolute;
+    margin-left: 8px;
+}
+input#checkAll {margin-top: 3px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 992px){
+    .outerdiv {
+        width: 50% !important;
+    }
+    .table-responsive {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .outerdiv {
+        width: 60% !important;
+    }
+}
+
+@media only screen and (max-width: 560px){
+    .outerdiv {
+        width: 90% !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
