@@ -34,6 +34,37 @@
           </div>
         <?php }?>
 
+         <?php if(isset($addteacher['suberror'])){
+
+            $error = $addteacher['suberror'];
+            foreach ($error as $value) {
+                $subj='';
+                $sect='';
+                $explodevalue = explode('&', $value);
+                $subj=$explodevalue[0];
+                $sect=$explodevalue[1];
+                            $red = $sub->getSubjectByID($subj);
+                            if($red==true){
+                                while($value = mysqli_fetch_assoc($red)){ 
+
+                                $sectionred = $sec->getSectionByID($sect);
+                                if($sectionred==true){
+                                    while($secvalue = mysqli_fetch_assoc($sectionred)){ 
+                                    ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?php echo "Course ".$value['code']."-".$value['name']." And section ".$secvalue['name']." already assign!!";?></strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+         <?php } } 
+            } }
+          
+        } } ?>
+
+    
+
           
           <!-- Content Row -->
           <div class="row">
@@ -50,8 +81,8 @@
                     </div>
                     <div class="form-group">
                         <label for="subject_id">Course</label>
-                        <select name="subject_id" id="subject_id" class="form-control">
-                            <option value="" selected>Select Course</option>
+                        <select name="subject_id[]" id="subject_id" class="form-control select-multi" multiple="multiple">
+                            <!-- <option value="" selected>Select Course</option> -->
                         <?php
                             $red = $sub->getSubject();
                             if($red==true){
@@ -64,8 +95,8 @@
                     </div>
                     <div class="form-group">
                         <label for="section_id">Section</label>
-                        <select name="section_id" id="section_id" class="form-control">
-                            <option value="" selected>Select Section</option>
+                        <select name="section_id[]" id="section_id" class="form-control select-multi" multiple="multiple">
+                            <!-- <option value="" selected>Select Section</option> -->
                         <?php
                             $red = $sec->getSection();
                             if($red==true){

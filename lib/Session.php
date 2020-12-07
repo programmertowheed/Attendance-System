@@ -22,45 +22,59 @@ class Session{
 	
 	public static function checkSession(){
 		self::init();
-		if(self::get("login")==false){
+		if(self::get("attuserlogin")==false){
 			self::destroy();
 		}
 	}
 	
 	public static function checkSessionAdmin(){
 		self::init();
-		if(self::get("adminlogin")==false){
-			self::destroy();
+		if(self::get("attadminlogin")==false){
+			self::admindestroy();
 		}
 	}
 
 	public static function checkLogin(){
-		if(self::get("login")==true){
+		if(self::get("attuserlogin")==true){
 			header("Location:index.php");
 		}
 	}
 
 	public static function checkLoginAdmin(){
-		if(self::get("adminlogin")==true){
+		if(self::get("attadminlogin")==true){
 			header("Location:index.php");
 		}
 	}
 
 	public static function checkLoginresetpass(){
-		if(self::get("login")==true){
+		if(self::get("attuserlogin")==true){
 			header("Location:./../index.php");
 		}
 	}
 
 	public static function checkLoginresetpassAdmin(){
-		if(self::get("adminlogin")==true){
+		if(self::get("attadminlogin")==true){
 			header("Location:./../index.php");
 		}
 	}
 	
-	public static function destroy(){
-		session_destroy();
+	public static function admindestroy(){
+		//session_destroy();
+		unset($_SESSION['attadminlogin']);
+		unset($_SESSION['attadminemail']);
+		unset($_SESSION['attadminuserId']);
 		header("Location:login.php");
+		exit();
+	}
+
+	public static function destroy(){
+		//session_destroy();
+		unset($_SESSION['attuserlogin']);
+		unset($_SESSION['attuserauth']);
+		unset($_SESSION['attuseremployeid']);
+		unset($_SESSION['attuserId']);
+		header("Location:login.php");
+		exit();
 	}
 
 	

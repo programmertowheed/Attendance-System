@@ -61,25 +61,37 @@ class Student extends Controller{
             //header("Location:../editstudent.php?id=$id&err=Feild must not be empty!!");
             $this->msg['error'] = "Feild must not be empty!!";
             return $this->msg;
-        }else{    
-            $update ="UPDATE tbl_student 
-                    SET
-                    name               = '$name',
-                    department_id      = '$department_id',
-                    studentid          = '$studentid',
-                    phone              = '$phone',
-                    publication_status = '$publication_status'
-                    WHERE id = '$id'
-                    ";
-            $run = $this->db->update($update);
-            if($run== true){
-                //header("Location:../studentlist.php?msg=Data updated successfully!!");
-                $this->msg['success'] = "Data updated successfully!!";
-            	return $this->msg;
-            }else{
-                //header("Location:../studentlist.php?err=Data not updated!!");
-                $this->msg['error'] = "Data not updated!!";
-            	return $this->msg;
+        }else{  
+            $sid = $this->getStudentBySID($studentid);
+            if($sid){
+                while($res = mysqli_fetch_assoc($sid)){
+                    $exid  = $res['id'] ;
+                }
+            }
+
+            if(isset($exid) && $id != $exid){
+                $this->msg['error'] = "Student ID already exist!!";
+                return $this->msg;
+            }else{   
+                $update ="UPDATE tbl_student 
+                        SET
+                        name               = '$name',
+                        department_id      = '$department_id',
+                        studentid          = '$studentid',
+                        phone              = '$phone',
+                        publication_status = '$publication_status'
+                        WHERE id = '$id'
+                        ";
+                $run = $this->db->update($update);
+                if($run== true){
+                    //header("Location:../studentlist.php?msg=Data updated successfully!!");
+                    $this->msg['success'] = "Data updated successfully!!";
+                	return $this->msg;
+                }else{
+                    //header("Location:../studentlist.php?err=Data not updated!!");
+                    $this->msg['error'] = "Data not updated!!";
+                	return $this->msg;
+                }
             }
         }
 	}

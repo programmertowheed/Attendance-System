@@ -14,32 +14,64 @@ class Studentassign extends Controller{
 
 	public function addStudent($data){
 		$student_id = $this->fm->validation($data['student_id']);
-        $subject_id = $this->fm->validation($data['subject_id']);
+        if(isset($data['subject_id'])){
+           $subject_id = $data['subject_id']; 
+        }else{
+            $subject_id = "";
+        }
         $section_id = $this->fm->validation($data['section_id']);
 
         if(empty($student_id) || empty($subject_id) || empty($section_id)){
             //header("Location:addstudent.php?err=Feild must not be empty!!");
             $this->msg['error'] = "Feild must not be empty!!";
             return $this->msg;
-        }else{    
-            $id = $this->getSubjectByID($student_id,$subject_id, $section_id);
-            if($id){
-                $this->msg['error'] = "Course already assign!!";
-                return $this->msg;
-            }else{
-                $insert ="INSERT INTO  tbl_studentassign (student_id,subject_id,section_id)
-                VALUES ('$student_id','$subject_id','$section_id')";
-                $run = $this->db->insert($insert);
-                if($run== true){
-                   // header("Location:addstudent.php?msg=Student added successfully!!");
-                    $this->msg['success'] = "Student assign successfully!!";
-                    return $this->msg;
+        }else{  
+            $suberror = array();
+            $i=0;
+            $flag = false;
+
+            foreach ($subject_id as $subject) {  
+                $id = $this->getSubjectByID($student_id,$subject);
+                if($id){
+                    $i++;
+                    $suberror[$i]=$subject;
+                    // $this->msg['error'] = "Course already assign!!";
+                    // return $this->msg;
                 }else{
-                   // header("Location:addstudent.php?err=Student not added!!");
-                    $this->msg['error'] = "Student not assign!!";
-                    return $this->msg;
+                    $flag = true;
+                    $insert ="INSERT INTO  tbl_studentassign (student_id,subject_id,section_id)
+                    VALUES ('$student_id','$subject','$section_id')";
+                    $run = $this->db->insert($insert);
+                    // if($run== true){
+                    //    // header("Location:addstudent.php?msg=Student added successfully!!");
+                    //     $this->msg['success'] = "Student assign successfully!!";
+                    //     return $this->msg;
+                    // }else{
+                    //    // header("Location:addstudent.php?err=Student not added!!");
+                    //     $this->msg['error'] = "Student not assign!!";
+                    //     return $this->msg;
+                    // }
                 }
             }
+
+            if($flag==false){
+                $this->msg['error'] = "Student not assign!!";
+                $this->msg['suberror'] = $suberror;
+                return $this->msg;
+            }else{
+                if($run== true){
+                   // header("Location:addstudent.php?msg=Student added successfully!!");
+                    if($suberror){
+                        $this->msg['success'] = "Student assign successfully!!";
+                        $this->msg['suberror'] = $suberror;
+                        return $this->msg;
+                    }else{  
+                        $this->msg['success'] = "Student assign successfully!!";
+                        return $this->msg;
+                    }
+                }
+            }
+            
             
         }
 	}
@@ -56,7 +88,7 @@ class Studentassign extends Controller{
             $this->msg['error'] = "Feild must not be empty!!";
             return $this->msg;
         }else{   
-            $response = $this->getSubjectByID($sid,$subject_id,$section_id);
+            $response = $this->getSubjectByID($sid,$subject_id);
             if($response){
                 $this->msg['info'] = "Course already assign!!";
                 return $this->msg;
@@ -88,11 +120,17 @@ class Studentassign extends Controller{
         return $red;
 	}
 
-    public function getSubjectByID($sid, $subid, $secid){
-        $query = "SELECT * FROM tbl_studentassign WHERE student_id='$sid' AND subject_id='$subid' AND section_id='$secid' ";
+    public function getSubjectByID($sid, $subid){
+        $query = "SELECT * FROM tbl_studentassign WHERE student_id='$sid' AND subject_id='$subid'";
         $red = $this->db->select($query);
         return $red;
     }
+
+    // public function getSubjectByID($sid, $subid, $secid){
+    //     $query = "SELECT * FROM tbl_studentassign WHERE student_id='$sid' AND subject_id='$subid' AND section_id='$secid' ";
+    //     $red = $this->db->select($query);
+    //     return $red;
+    // }
 
 
     public function getStudentList(){

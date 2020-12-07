@@ -175,16 +175,16 @@ if(isset($_COOKIE['email'])){
 	
 
 	<!-- jQuery library -->
-  	<script src="../assets/vendor/jquery/jquery.min.js"></script>
+  	<script src="./../assets/vendor/jquery/jquery.min.js"></script>
 
 	<!-- bootstrap library -->
-  	<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  	<script src="./../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Latest bootstrap JavaScript -->
-	<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="./../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	
 	<!-- fontawesome file-->
-	<script src="../assets/vendor/fontawesome-free/js/fontawesome.min.js"></script>
+	<script src="./../assets/vendor/fontawesome-free/js/fontawesome.min.js"></script>
 
 
 	<script type="text/javascript">

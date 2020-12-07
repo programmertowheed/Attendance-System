@@ -57,6 +57,9 @@
 
   <!-- Custom styles for datatable -->
   <link href="./../assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <!-- Custom styles for select2 -->
+  <link href="./../assets/css/select2.min.css" rel="stylesheet">
   
   <!-- My styles for this template-->
   <link href="./../assets/css/style.css" rel="stylesheet">

@@ -93,23 +93,36 @@ class Subject extends Controller{
           $msg['error'] = "Feild must not be empty!!";
           return $msg;
       }else{    
-          $update ="UPDATE tbl_subject 
-              SET
-              code               = '$code',
-              name               = '$name',
-              department_id      = '$department_id',
-              publication_status = '$publication_status'
-              WHERE id = '$id'
-              ";
-          $run = $this->db->update($update);
-          if($run== true){
-            //header("Location:../authorlist.php?msg=Data updated successfully!!");
-            $msg['success'] = "Data updated successfully!!";
-            return $msg;
-          }else{
-            //header("Location:../authorlist.php?err=Data not updated!!");
-            $msg['error'] = "Data not updated!!";
-            return $msg;
+          $exquery = "SELECT * FROM tbl_subject WHERE code='$code' AND department_id = '$department_id' ";
+          $exdepart = $this->db->select($exquery);
+          if($exdepart != false){
+              while($res = mysqli_fetch_assoc($exdepart)){
+                  $exid  = $res['id'] ;
+              }
+          }
+
+          if(isset($exid) && $exid != $id){
+              $msg['error'] = "Course already exist!!";
+              return $msg;
+          }else{ 
+              $update ="UPDATE tbl_subject 
+                  SET
+                  code               = '$code',
+                  name               = '$name',
+                  department_id      = '$department_id',
+                  publication_status = '$publication_status'
+                  WHERE id = '$id'
+                  ";
+              $run = $this->db->update($update);
+              if($run== true){
+                //header("Location:../authorlist.php?msg=Data updated successfully!!");
+                $msg['success'] = "Data updated successfully!!";
+                return $msg;
+              }else{
+                //header("Location:../authorlist.php?err=Data not updated!!");
+                $msg['error'] = "Data not updated!!";
+                return $msg;
+              }
           }
       }
 	}

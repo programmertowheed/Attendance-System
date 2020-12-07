@@ -2,8 +2,9 @@
 <?php 
 	 
     if(isset($_REQUEST['imgsubmit'])){
-			$email = Session::get("adminemail");
-			$id    = Session::get("adminuserId");
+			$email = Session::get("attadminemail");
+			$id    = Session::get("attadminuserId");
+			
 			$permited = array('jpg','jpeg','png','gif');
 			$file_name  =$_FILES['adminimage']['name'];
 			$file_size  =$_FILES['adminimage']['size'];

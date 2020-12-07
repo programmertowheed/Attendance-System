@@ -87,21 +87,34 @@ class Section extends Controller{
           $msg['error'] = "Feild must not be empty!!";
           return $msg;
       }else{    
-          $update ="UPDATE tbl_section 
-              SET
-              name               = '$name',
-              publication_status = '$publication_status'
-              WHERE id = '$id'
-              ";
-          $run = $this->db->update($update);
-          if($run== true){
-            //header("Location:../authorlist.php?msg=Data updated successfully!!");
-            $msg['success'] = "Data updated successfully!!";
-            return $msg;
-          }else{
-            //header("Location:../authorlist.php?err=Data not updated!!");
-            $msg['error'] = "Data not updated!!";
-            return $msg;
+          $exquery = "SELECT * FROM tbl_section WHERE name='$name' ";
+          $exdepart = $this->db->select($exquery);
+          if($exdepart != false){
+              while($res = mysqli_fetch_assoc($exdepart)){
+                  $exid  = $res['id'] ;
+              }
+          }
+
+          if(isset($exid) && $exid != $id){
+              $msg['error'] = "Section already exist!!";
+              return $msg;
+          }else{ 
+              $update ="UPDATE tbl_section 
+                  SET
+                  name               = '$name',
+                  publication_status = '$publication_status'
+                  WHERE id = '$id'
+                  ";
+              $run = $this->db->update($update);
+              if($run== true){
+                //header("Location:../authorlist.php?msg=Data updated successfully!!");
+                $msg['success'] = "Data updated successfully!!";
+                return $msg;
+              }else{
+                //header("Location:../authorlist.php?err=Data not updated!!");
+                $msg['error'] = "Data not updated!!";
+                return $msg;
+              }
           }
       }
 	}

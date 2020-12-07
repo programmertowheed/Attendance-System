@@ -34,6 +34,23 @@
           </div>
         <?php }?>
 
+        <?php if(isset($addstudent['suberror'])){
+            $error = $addstudent['suberror'];
+            foreach ($error as $value) {
+                            $red = $sub->getSubjectByID($value);
+                            if($red==true){
+                                while($value = mysqli_fetch_assoc($red)){ ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><?php echo $value['code']."-".$value['name']." Course already assign!!" ?></strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+         <?php } } 
+          
+        } } ?>
+
           
           <!-- Content Row -->
           <div class="row">
@@ -50,8 +67,8 @@
                     </div>
                     <div class="form-group">
                         <label for="subject_id">Course</label>
-                        <select name="subject_id" id="subject_id" class="form-control">
-                            <option value="" selected>Select Course</option>
+                        <select name="subject_id[]" id="subject_id" class="form-control select-multi" multiple="multiple">
+                            <!-- <option value="" selected>Select Course</option> -->
                         <?php
                             $red = $sub->getSubject();
                             if($red==true){

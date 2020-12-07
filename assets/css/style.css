@@ -120,8 +120,18 @@ nav.navbar .sidebar-brand-text.mx-3 {
 .formouter{
     padding: 30px;
 }
+.form-group .form-check-inline .form-check-label {
+    padding-left: 20px;
+}
+.form-check-inline .form-check-input {
+    position: absolute;
+    top: -2px;
+    margin-top: 5px;
+    margin-right: .3125rem;
+    margin-left: -20px;
+}
 input[type=checkbox], input[type=radio] {
-    width: 20px;
+    width: 16px;
     margin-top: 6px;
     height: calc(5px + 0px + 13px);
 }

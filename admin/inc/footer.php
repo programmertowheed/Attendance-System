@@ -46,6 +46,11 @@
   <script src="./../assets/js/demo/chart-pie-demo.js"></script>
   <script src="./../assets/js/demo/datatables-demo.js"></script>
 
+
+  <!-- Select2 scripts -->
+  <script src="./../assets/js/select2.min.js"></script>
+
+
   <!-- My custom scripts -->
   <script src="./../assets/js/custom.js"></script>
 

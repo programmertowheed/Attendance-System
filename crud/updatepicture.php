@@ -15,9 +15,9 @@
 <?php 
 	 
     if(isset($_REQUEST['imgsubmit'])){
-			$auth = Session::get("auth");
-			$id   = Session::get("userId");
-			$eid  = Session::get("employeid");
+			$auth = Session::get("attuserauth");
+			$id   = Session::get("attuserId");
+			$eid  = Session::get("attuseremployeid");
 			$permited = array('jpg','jpeg','png','gif');
 			$file_name  =$_FILES['adminimage']['name'];
 			$file_size  =$_FILES['adminimage']['size'];

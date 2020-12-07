@@ -77,3 +77,6 @@ $(document).ready(function(){
     }
 
     
+  $(document).ready(function() {
+    $('.select-multi').select2();
+  });

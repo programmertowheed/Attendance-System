@@ -5,7 +5,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Edit Student</h1>
+            <h1 class="h3 mb-0 text-gray-800">Edit Teacher</h1>
           </div>
 <?php 
      
@@ -48,7 +48,7 @@
         }else{
             while($res = mysqli_fetch_assoc($red)){ ?>
                     <div class="form-group">
-                        <label class="control-label" for="inputSuccess">Student name</label>
+                        <label class="control-label" for="inputSuccess">Teacher name</label>
                         <input type="text" class="form-control" value="<?php echo $res['name'];?>" name="name" id="inputSuccess">
                         <input type="hidden" class="form-control" value="<?php echo $res['id'];?>" name="id" id="id">
                     </div>
@@ -69,12 +69,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="inputWarning">Student ID</label>
+                        <label class="control-label" for="inputWarning">Employe ID</label>
                         <input type="text" class="form-control" value="<?php echo $res['employeid'];?>" name="employeid" id="inputWarning">
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="inputError">Phone</label>
                         <input type="text" class="form-control" value="<?php echo $res['phone'];?>" name="phone" id="inputError">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="inputEmail">Email</label>
+                        <input type="text" class="form-control" value="<?php echo $res['email'];?>" name="email" id="inputEmail">
+                        <input type="hidden" class="form-control" value="<?php echo $res['userid'];?>" name="userid" >
                     </div>
                     <div class="form-group">
                         <label for="publication_status" class="control-label">Publication Status</label>

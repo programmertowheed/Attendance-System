@@ -184,10 +184,10 @@ if(!isset($_COOKIE['r_n_c_a'])){
 									$value = mysqli_fetch_array($result);
 									$row   = mysqli_num_rows($result);
 									if($row > 0){
-										Session::set("login", true);
-										Session::set("auth", $value['auth']);
-										Session::set("employeid", $value['employeid']);
-										Session::set("userId", $value['id']);
+										Session::set("attuserlogin", true);
+										Session::set("attuserauth", $value['auth']);
+										Session::set("attuseremployeid", $value['employeid']);
+										Session::set("attuserId", $value['id']);
 
 										setcookie("email","",time()-(86400*7));
 										setcookie("eid","",time()-(86400*7));

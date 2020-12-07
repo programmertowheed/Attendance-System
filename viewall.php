@@ -49,7 +49,7 @@
                           <select name="courseSection" id="courseSection" class="form-control">
                               <option value="" selected>Select Course and section</option>
                          <?php
-                               $eid = Session::get("employeid");
+                               $eid = Session::get("attuseremployeid");
                                $tid = $tea->getEmployeByID($eid)->fetch_assoc();
                                $tid = $tid['id'];
                                $red = $teaassign->getTeacherCourseList($tid);

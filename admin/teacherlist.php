@@ -32,24 +32,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>SL</th>
-                      <th>Name</th>
-                      <th>Teacher ID</th>
-                      <th>Department</th>
-                      <th>Phone</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th width="5%">SL</th>
+                      <th width="25%">Name</th>
+                      <th width="10%">Teacher ID</th>
+                      <th width="5%">Department</th>
+                      <th width="20%">Email</th>
+                      <th width="10%">Phone</th>
+                      <th width="5%">Status</th>
+                      <th width="20%">Action</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>SL</th>
-                      <th>Name</th>
-                      <th>Teacher ID</th>
-                      <th>Department</th>
-                      <th>Phone</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th width="5%">SL</th>
+                      <th width="25%">Name</th>
+                      <th width="10%">Teacher ID</th>
+                      <th width="5%">Department</th>
+                      <th width="20%">Email</th>
+                      <th width="10%">Phone</th>
+                      <th width="5%">Status</th>
+                      <th width="20%">Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -57,7 +59,7 @@
   $i = 0;
   $red = $tea->getTeacherList();
   if($red==false){?>
-  <td colspan="7"><h4 class="text-center">No Data Found</h4></td>
+  <td colspan="8"><h4 class="text-center">No Data Found</h4></td>
   <?php }else{
   while($res = mysqli_fetch_assoc($red)){ $i++ ?>
 
@@ -66,6 +68,7 @@
                       <td><?php echo $res['name'];?></td>
                       <td><?php echo $res['employeid'];?></td>
                       <td><?php echo $res['departname'];?></td>
+                      <td><?php echo $res['email'];?></td>
                       <td><?php echo $res['phone'];?></td>
                       <?php if($res['publication_status']==1){?>
                       <td>Enable</td>

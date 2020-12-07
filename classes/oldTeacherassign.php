@@ -14,65 +14,35 @@ class Teacherassign extends Controller{
 
 	public function addTeacher($data){
 		$teacher_id = $this->fm->validation($data['teacher_id']);
-
-        if(isset($data['subject_id'])){
-           $subject_id = $data['subject_id']; 
-        }else{
-            $subject_id = "";
-        }
-       
-        if(isset($data['section_id'])){
-           $section_id = $data['section_id']; 
-        }else{
-            $section_id = "";
-        }
+        $subject_id = $this->fm->validation($data['subject_id']);
+        $section_id = $this->fm->validation($data['section_id']);
 
         if(empty($teacher_id) || empty($subject_id) || empty($section_id)){
             //header("Location:addstudent.php?err=Feild must not be empty!!");
             $this->msg['error'] = "Feild must not be empty!!";
             return $this->msg;
-        }else{   
-
-            $suberror = array();
-            $i=0;
-            $flag = false;
-
-            foreach ($subject_id as $subject) { 
-                foreach ($section_id as $section) { 
-                    $ifexist = $this->getSectionByID($teacher_id,$subject,$section);
-                    if($ifexist){
-                        $i++;
-                        $suberror[$i]=$subject."&".$section;
-                    }else{
-                        $flag = true;
-                        $insert ="INSERT INTO  tbl_teacherassign (teacher_id,subject_id,section_id)
-                        VALUES ('$teacher_id','$subject','$section')";
-                        $run = $this->db->insert($insert);
-                    }
-                }
-            }
-
-
-            if($flag==false){
-                $this->msg['error'] = "Teacher not assign!!";
-                $this->msg['suberror'] = $suberror;
-                //$this->msg['corerror'] = $corerror;
+        }else{    
+            $ifexist = $this->getSectionByID($teacher_id,$subject_id,$section_id);
+            if($ifexist){
+                $this->msg['error'] = "Course and section already assign!!";
                 return $this->msg;
             }else{
+                $insert ="INSERT INTO  tbl_teacherassign (teacher_id,subject_id,section_id)
+                VALUES ('$teacher_id','$subject_id','$section_id')";
+                $run = $this->db->insert($insert);
                 if($run== true){
-                    if($suberror){
-                        $this->msg['success'] = "Teacher assign successfully!!";
-                        $this->msg['suberror'] = $suberror;
-                       // $this->msg['corerror'] = $corerror;
-                        return $this->msg;
-                    }else{  
-                        $this->msg['success'] = "Teacher assign successfully!!";
-                        return $this->msg;
-                    }
+                   // header("Location:addstudent.php?msg=Student added successfully!!");
+                    $this->msg['success'] = "Teacher assign successfully!!";
+                    return $this->msg;
+                }else{
+                   // header("Location:addstudent.php?err=Student not added!!");
+                    $this->msg['error'] = "Teacher not assign!!";
+                    return $this->msg;
                 }
-            }   
+            }
+            
         }
-    }
+	}
 
 
 	public function updateTeacher($data){

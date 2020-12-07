@@ -62,17 +62,31 @@ class Teacher extends Controller{
 
   public function editTeacher($data){
     $id                  = $this->fm->validation($data['id']);
-        $name                = $this->fm->validation($data['name']);
-        $department_id       = $this->fm->validation($data['department_id']);
-        $employeid           = $this->fm->validation($data['employeid']);
-        $phone               = $this->fm->validation($data['phone']);
-        $publication_status  = $this->fm->validation($data['publication_status']);
+    $name                = $this->fm->validation($data['name']);
+    $department_id       = $this->fm->validation($data['department_id']);
+    $employeid           = $this->fm->validation($data['employeid']);
+    $phone               = $this->fm->validation($data['phone']);
+    $email               = $this->fm->validation($data['email']);
+    $userid              = $this->fm->validation($data['userid']);
+    $publication_status  = $this->fm->validation($data['publication_status']);
 
-        if(empty($id) || empty($name) || empty($department_id) || empty($employeid) || empty($phone) || empty($publication_status)){
-            //header("Location:../editTeacher.php?id=$id&err=Feild must not be empty!!");
-            $this->msg['error'] = "Feild must not be empty!!";
-            return $this->msg;
-        }else{    
+    if(empty($id) || empty($name) || empty($department_id) || empty($employeid) || empty($phone) || empty($email) || empty($userid) || empty($publication_status)){
+        //header("Location:../editTeacher.php?id=$id&err=Feild must not be empty!!");
+        $this->msg['error'] = "Feild must not be empty!!";
+        return $this->msg;
+    }else{  
+        $exquery = "SELECT * FROM tbl_teacher WHERE employeid='$employeid'";
+        $exdepart = $this->db->select($exquery);
+        if($exdepart != false){
+            while($res = mysqli_fetch_assoc($exdepart)){
+                $exid  = $res['id'] ;
+            }
+        }
+
+        if(isset($exid) && $exid != $id){
+            $msg['error'] = "Teacher already exist!!";
+            return $msg;
+        }else{   
             $update ="UPDATE tbl_teacher 
                     SET
                     name               = '$name',
@@ -84,19 +98,38 @@ class Teacher extends Controller{
                     ";
             $run = $this->db->update($update);
             if($run== true){
-                //header("Location:../Teacherlist.php?msg=Data updated successfully!!");
-                $this->msg['success'] = "Data updated successfully!!";
-              return $this->msg;
+                $userupdate ="UPDATE tbl_user 
+                    SET
+                    employeid   = '$employeid',
+                    mobile      = '$phone',
+                    userEmail   = '$email'
+                    WHERE id = '$userid'
+                    ";
+                $urun = $this->db->update($userupdate);
+                if($urun== true){
+                    $this->msg['success'] = "Data updated successfully!!";
+                  return $this->msg;
+                }else{
+                    //header("Location:../Teacherlist.php?err=Data not updated!!");
+                    $this->msg['error'] = "Data not updated!!";
+                  return $this->msg;
+                }
             }else{
                 //header("Location:../Teacherlist.php?err=Data not updated!!");
                 $this->msg['error'] = "Data not updated!!";
               return $this->msg;
             }
         }
+    }
   }
 
   public function getTeacherByID($id){
-    $query = "SELECT * FROM tbl_teacher WHERE id= '$id' ";
+    //$query = "SELECT * FROM tbl_teacher WHERE id= '$id' ";
+    $query = "SELECT tbl_teacher.*, tbl_user.userEmail as email, tbl_user.id as    userid
+            FROM tbl_teacher 
+            INNER JOIN tbl_user
+            ON tbl_user.employeid = tbl_teacher.employeid 
+            WHERE tbl_teacher.id= '$id'";
     $red = $this->db->select($query);
     return $red;
   }
@@ -132,10 +165,12 @@ class Teacher extends Controller{
 
 
     public function getTeacherList(){
-        $query = "SELECT tbl_teacher.*, tbl_department.name as departname
+        $query = "SELECT tbl_teacher.*, tbl_department.name as departname, tbl_user.userEmail as email
             FROM tbl_teacher 
             INNER JOIN tbl_department
             ON tbl_teacher.department_id = tbl_department.id 
+            INNER JOIN tbl_user
+            ON tbl_user.employeid = tbl_teacher.employeid 
             ORDER BY tbl_teacher.employeid ASC";
         $red = $this->db->select($query);
         return $red;

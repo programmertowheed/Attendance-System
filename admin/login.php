@@ -146,9 +146,9 @@
 								$value = mysqli_fetch_array($result);
 								$row   = mysqli_num_rows($result);
 								if($row > 0){
-									Session::set("adminlogin", true);
-									Session::set("adminemail", $value['userEmail']);
-									Session::set("adminuserId", $value['id']);
+									Session::set("attadminlogin", true);
+									Session::set("attadminemail", $value['userEmail']);
+									Session::set("attadminuserId", $value['id']);
 									header("Location:index.php");
 								}else{
 									echo "<span style='color:red;font-size:18px'>Result not found!</span>";

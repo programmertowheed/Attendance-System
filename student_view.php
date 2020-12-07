@@ -6,12 +6,31 @@
     $sub  = $fm->validation($_GET['sub']);
     $sec  = $fm->validation($_GET['sec']);
     $tid  = $fm->validation($_GET['tid']);
+
+    $sub = (int)$sub;
+    $sec = (int)$sec;
+    $tid = (int)$tid;
+    
+    if((date('Y-m-d',strtotime($date)) == $date) == false){
+        $msg = "Invalid date formate!!";
+      header("Location:viewall.php?error=$msg");
+    }
+
+
     if(empty($date)){
       $msg = "Date not found!!";
       header("Location:viewall.php?error=$msg");
     }
     if(empty($sub) || empty($sec) || empty($tid)){
       $msg = "Data missing!!";
+      header("Location:viewall.php?error=$msg");
+    }
+    if(!is_integer($sec) || !is_integer($tid)){
+      $msg = "Data missing!!";
+      header("Location:viewall.php?error=$msg");
+    }
+    if(!is_integer($sec) || !is_integer($tid) || !is_integer($sub)){
+      $msg = "Invalid formate!!";
       header("Location:viewall.php?error=$msg");
     }
   }else{
